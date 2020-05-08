@@ -22,13 +22,11 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         UserDaoInter userDao=Contex.instanceUserDao();
-        List<User> list=userDao.getAll();
-        System.out.println(list);
+       
+        User u=new User(0, "Mubariz", "Qurbanov", "mubariz@gmail.com", "+994709225383");
+        userDao.addUser(u);
         
-        User user=userDao.getById(2);
-        user.setName("Elgiz");
         
-        userDao.updateUser(user);       
         List<User> list1=userDao.getAll();
         System.out.println(list1);
         
