@@ -13,19 +13,11 @@ import java.util.List;
  *
  * @author virtu
  */
-public interface UserDaoInter {
+public interface UserSkillDaoInter {
     
-    public List<User> getAll();
     
-    public User getById(int id);
     
-    public boolean addUser(User u);
-    
-    public boolean updateUser(User u);
-    
-    public boolean removeUser(int id);
-    
-   
+    public List<UserSkill> getAllSkillByUserId(int userId);
     
     
     

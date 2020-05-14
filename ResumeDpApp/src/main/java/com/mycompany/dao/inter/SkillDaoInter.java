@@ -5,6 +5,8 @@
  */
 package com.mycompany.dao.inter;
 
+import com.mycompany.entity.Country;
+import com.mycompany.entity.Skill;
 import com.mycompany.entity.User;
 import com.mycompany.entity.UserSkill;
 import java.util.List;
@@ -13,19 +15,13 @@ import java.util.List;
  *
  * @author virtu
  */
-public interface UserDaoInter {
+public interface SkillDaoInter {
     
-    public List<User> getAll();
     
-    public User getById(int id);
     
-    public boolean addUser(User u);
+    public List<Skill> getAll();
     
-    public boolean updateUser(User u);
-    
-    public boolean removeUser(int id);
-    
-   
+  
     
     
     
