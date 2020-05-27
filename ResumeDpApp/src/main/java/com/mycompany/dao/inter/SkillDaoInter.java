@@ -21,6 +21,13 @@ public interface SkillDaoInter {
     
     public List<Skill> getAll();
     
+    public void insertSkill(Skill skill);
+    
+    public void updateSkill(Skill skill);
+    
+    public void deleteSkill(int skill);
+    
+    
   
     
     

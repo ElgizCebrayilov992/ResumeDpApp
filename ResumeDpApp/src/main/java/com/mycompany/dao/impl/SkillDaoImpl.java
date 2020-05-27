@@ -9,6 +9,7 @@ import com.mycompany.dao.inter.AbstractDAO;
 import com.mycompany.dao.inter.SkillDaoInter;
 import com.mycompany.entity.Skill;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -51,7 +52,52 @@ public class SkillDaoImpl extends AbstractDAO implements SkillDaoInter {
         }
         
         return result;
-    }  }
+    }
+
+    @Override
+    public void insertSkill(Skill skill) {
+      try(Connection c=connect()) {
+
+          PreparedStatement pst= c.prepareStatement("Insert into skill (name) values (?)",Statement.RETURN_GENERATED_KEYS);
+           pst.setString(1, skill.getName());
+           pst.execute();
+          
+           ResultSet generatedKeys=pst.getGeneratedKeys();
+               if (generatedKeys.next()) {
+                   skill.setId(generatedKeys.getInt(1));
+               }
+         
+        } catch (Exception e) {
+        }
+    }
+
+    @Override
+    public void updateSkill(Skill skill) {
+     try(Connection c=connect()) {
+
+          PreparedStatement pst= c.prepareStatement("update skill set name=? where id=?");
+           pst.setString(1, skill.getName());
+           pst.setInt(2, skill.getId());
+           pst.execute();
+          
+        } catch (Exception e) {
+        }  
+    
+    }
+
+    @Override
+    public void deleteSkill(int skill) {
+        try(Connection c=connect()) {
+
+          PreparedStatement pst= c.prepareStatement("delete from skill where id=?");
+          
+           pst.setInt(1, skill);
+           pst.execute();
+          
+        } catch (Exception e) {
+        }  
+    }
+ }
 
   
 

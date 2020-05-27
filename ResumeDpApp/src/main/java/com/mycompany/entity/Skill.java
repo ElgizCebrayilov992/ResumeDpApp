@@ -40,7 +40,7 @@ public class Skill {
 
     @Override
     public String toString() {
-        return "Skill{" + "id=" + id + ", Name=" + Name + '}';
+        return  Name;
     }
 
     

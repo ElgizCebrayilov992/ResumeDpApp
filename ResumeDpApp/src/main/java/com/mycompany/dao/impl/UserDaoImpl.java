@@ -36,11 +36,11 @@ public class UserDaoImpl extends AbstractDAO implements UserDaoInter {
         String natioanlityStr = rs.getString("nationality");
         String birthPlaceStr = rs.getString("birthplace");
         Date birthDate = rs.getDate("birthdate");
+        String profileDesc=rs.getString("profileDescription");
 
         Country nationality = new Country(natioanlityId, null, natioanlityStr);
         Country birthPlace = new Country(birthPlaceId, birthPlaceStr, null);
-        return new User(id, name, surname, email, phone, birthDate, nationality, birthPlace);
-
+        return new User(id, name, surname, email, phone, birthDate, profileDesc, nationality, birthPlace);
     }
 
     @Override
@@ -101,12 +101,16 @@ public class UserDaoImpl extends AbstractDAO implements UserDaoInter {
 
         try (Connection c = connect()) {
 
-            PreparedStatement ps = c.prepareStatement("update user set name=?,surname=?,email=?,phone=? where id=?");
+            PreparedStatement ps = c.prepareStatement("update user set name=?,surname=?,email=?,phone=?,profileDescription=?,birthdate=?,birthplace_id=?,nationality_id=? where id=?");
             ps.setString(1, u.getName());
             ps.setString(2, u.getSurname());
             ps.setString(3, u.getEmail());
             ps.setString(4, u.getPhone());
-            ps.setInt(5, u.getId());
+            ps.setString(5, u.getProfileDesc());
+            ps.setDate(6, u.getBirthDate());
+            ps.setInt(7, u.getBirthPlace().getId());
+            ps.setInt(8, u.getNationality().getId());
+            ps.setInt(9, u.getId());
             return ps.execute();
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -138,11 +142,12 @@ public class UserDaoImpl extends AbstractDAO implements UserDaoInter {
     public boolean addUser(User u) {
         try (Connection c = connect()) {
 
-            PreparedStatement ps = c.prepareStatement("insert into user(name , surname, email, phone) values (?,?,?,?)");
+            PreparedStatement ps = c.prepareStatement("insert into user(name , surname, email, phone,profileDescription) values (?,?,?,?,?)");
             ps.setString(1, u.getName());
             ps.setString(2, u.getSurname());
             ps.setString(3, u.getEmail());
             ps.setString(4, u.getPhone());
+            ps.setString(5, u.getProfileDesc());
 
             return ps.execute();
         } catch (Exception ex) {
